@@ -71,17 +71,19 @@ float sdCircle( in vec2 p, in float r ) {
 
 void main() {
 
-    vec2 st = (.5 - ((gl_FragCoord.xy) / u_resolution.xx)) * 7.0;
+    vec2 st = (.5 - ((gl_FragCoord.xy) / u_resolution.yy)) * 3.0;
+    // vec2 mouseposition = (u_mouse.xy) / u_resolution.xx));
 
     vec3 color = vec3(0.);
 
-    float a = sdCircle(st + u_mouse, 0.8 + sin(u_time * .5) * 0.2);
-    float b = sdCircle(st + vec2(u_mouse.x, u_mouse.y), 1.8 + sin(u_time * .5) * 0.2);
+    float a = sdCircle(st + u_mouse, 1.8 + sin(u_time * .5) * 0.2);
+    float b = sdCircle(st + vec2(u_mouse.x, u_mouse.y), 2.8 + sin(u_time * .5) * 0.2);
 
     st *= b < 0.0 ? 0.5 : 1.0;
     st *= a < 0.0 ? 2.0 : 1.0;
 
-    float f = fbm(st + fbm(st * (u_time * 0.01) + fbm(st + (u_time * 0.1) + (u_time * 0.01), 0.6), 0.9), 0.8);
+    // float f = fbm(st + fbm(st + fbm(st + 01), 0.6), 0.9), 0.8);
+    float f = fbm(st + fbm(st + (u_time * 0.01) + fbm(st + (u_time * 0.1) + (u_time * 0.01), 0.6), 0.9), 0.8);
     // float f = fbm(st * (u_time * 0.01) + fbm(st + (u_time * 0.1) * sin(u_time * 0.1), 0.6), 0.9);
     // float f = fbm(st, 1.);
     // vec3 color = vec3(1.);
@@ -106,6 +108,8 @@ void main() {
     // st = a < 0.0 ? st * 0.1 : st;
 
     gl_FragColor = vec4(vec3(f * f, f * f, f) * color * vec3(6.), 1.0);
+    // gl_FragColor = vec4(u_mouse.x, 0.0 0.0, 1.0);
+    // gl_FragColor = vec4(u_mouse.x, 0.0, 0.0, 1.0);
     // gl_FragColor = vec4(color, 1.0);
     // gl_FragColor = vec4((f, f, f) * color * vec3(1.0), f);
     // gl_FragColor = vec4(color, 1. - f);

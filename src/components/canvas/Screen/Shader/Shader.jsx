@@ -38,6 +38,7 @@ const Shader = forwardRef(({ children, ...props }, ref) => {
   useImperativeHandle(ref, () => localRef.current)
 
   useFrame(({ pointer }, delta) => {
+    console.log('🚀 ~ file: Shader.jsx:41 ~ useFrame ~ pointer:', pointer)
     localRef.current.u_time += delta
     localRef.current.u_mouse.x = pointer.x
     localRef.current.u_mouse.y = pointer.y
